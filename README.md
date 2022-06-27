@@ -1,4 +1,4 @@
-# human_pos_estimator
+# human_pose_estimator
 
 A new Flutter project.
 
