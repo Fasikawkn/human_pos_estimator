@@ -17,9 +17,10 @@ class DetectorBox extends StatelessWidget {
       Key? key})
       : super(key: key);
 
-  Map<String, Offset> _getPoints(Size screen) {
-    Map<String, Offset> _values = {};
+  List<Map<String, Offset>> _getPoints(Size screen) {
+    List<Map<String, Offset>> _keyPoints = [];
     for (var result in results) {
+      Map<String, Offset> _values = {};
       var keyValues = result['keypoints'].values;
       for (var keysPoint in keyValues) {
         var _x = keysPoint["x"];
@@ -42,9 +43,12 @@ class DetectorBox extends StatelessWidget {
 
         _values[keysPoint["part"]] = Offset(x - 6, y - 6);
       }
+
+      _keyPoints.add(_values);
+
     }
 
-    return _values;
+    return _keyPoints;
   }
 
   List<Widget> _renderNames() {
@@ -95,7 +99,7 @@ class DetectorBox extends StatelessWidget {
     return Stack(
       children: [
         CustomPaint(
-          painter: KeYPainter(_getPoints(_screenSize)),
+          painter: KeyPainter(_getPoints(_screenSize)),
         ),
         Stack(
           children: _renderNames(),
@@ -105,13 +109,14 @@ class DetectorBox extends StatelessWidget {
   }
 }
 
-class KeYPainter extends CustomPainter {
-  final Map<String, Offset> offsets;
-  const KeYPainter(this.offsets);
+class KeyPainter extends CustomPainter {
+  final List<Map<String, Offset>> ofssetsData;
+  const KeyPainter(this.ofssetsData);
 
   @override
   void paint(Canvas canvas, Size size) {
-    if (offsets.isNotEmpty) {
+    if (ofssetsData.isNotEmpty) {
+      for( var offsets in ofssetsData){
       Offset nose = offsets['nose']!;
       Offset leftEye = offsets['leftEye']!;
       Offset rightEye = offsets['rightEye']!;
@@ -165,6 +170,7 @@ class KeYPainter extends CustomPainter {
       canvas.drawLine(rightShoulder, rightElbow, _paintLine);
       canvas.drawLine(rightElbow, rightWrist, _paintLine);
     }
+      }
   }
 
   @override

@@ -48,7 +48,7 @@ class _CustomCameraState extends State<CustomCamera> {
                   }).toList(),
                   imageHeight: image.height,
                   imageWidth: image.width,
-                  numResults: 1,
+                  numResults: 3,
                 );
 
                 widget.setRecognitions(
@@ -75,7 +75,6 @@ class _CustomCameraState extends State<CustomCamera> {
 
   @override
   Widget build(BuildContext context) {
-    final _screenSize = MediaQuery.of(context).size;
     if (!_cameraController.value.isInitialized) {
       return Container();
     }
