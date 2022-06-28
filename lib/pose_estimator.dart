@@ -20,7 +20,7 @@ class _PoseEstimatorState extends State<PoseEstimator> {
 
   _loadModel() async {
      await Tflite.loadModel(
-      model: 'assets/posenet_mv1_075_float_from_checkpoints.tflite',
+      model: 'assets/posenet.tflite',
       numThreads: 3
     );
   }
